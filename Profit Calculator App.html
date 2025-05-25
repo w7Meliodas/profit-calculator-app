@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profit Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+      color: #333;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      background: #e7f5e8;
+      padding: 15px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📈 Profit Calculator</h2>
+    <input type="number" id="original" placeholder="Original Investment ($)">
+    <input type="number" id="current" placeholder="Current Value ($)">
+    <input type="number" id="sell" placeholder="Sell Amount ($)">
+    <button onclick="calculateProfit()">Calculate</button>
+    <div class="result" id="result" style="display:none;"></div>
+  </div>
+
+  <script>
+    function calculateProfit() {
+      const original = parseFloat(document.getElementById("original").value);
+      const current = parseFloat(document.getElementById("current").value);
+      const sell = parseFloat(document.getElementById("sell").value);
+
+      if (isNaN(original) || isNaN(current) || isNaN(sell)) {
+        alert("Please fill in all fields with valid numbers.");
+        return;
+      }
+
+      const rebuyRatio = (original / current) * 100;
+      const rebuyCost = sell * (rebuyRatio / 100);
+      const profitKept = sell - rebuyCost;
+      const remainingMarket = current - sell;
+
+      const resultHTML = `
+        <strong>Results:</strong><br>
+        Rebuy Ratio: ${rebuyRatio.toFixed(2)}%<br>
+        Rebuy Cost: $${rebuyCost.toFixed(2)}<br>
+        Profit Kept: $${profitKept.toFixed(2)}<br>
+        Remaining in Market: $${remainingMarket.toFixed(2)}
+      `;
+
+      const resultBox = document.getElementById("result");
+      resultBox.style.display = "block";
+      resultBox.innerHTML = resultHTML;
+    }
+  </script>
+</body>
+</html>
