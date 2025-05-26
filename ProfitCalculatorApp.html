@@ -3,13 +3,14 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profit Calculator</title>
+  <title>Profit Calculator + Market Overview</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
       background: #f4f4f4;
       color: #333;
+      text-align: center;
     }
     .container {
       max-width: 400px;
@@ -46,6 +47,14 @@
       padding: 15px;
       border-radius: 6px;
     }
+    .tradingview-container {
+      max-width: 400px;
+      margin: 30px auto;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body>
@@ -58,23 +67,28 @@
     <div class="result" id="result" style="display:none;"></div>
   </div>
 
-  <!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_self"><span class="blue-text">Track all markets on TradingView</span></a></div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-  {
-  "colorTheme": "light",
-  "dateRange": "12M",
-  "showChart": true,
-  "locale": "en",
-  "largeChartUrl": "",
-  "isTransparent": false,
-  "showSymbolLogo": true,
-  "showFloatingTooltip": false,
-  "width": "400",
-  "height": "550",
-  "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+  <div class="tradingview-container">
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <div class="tradingview-widget-copyright">
+        <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_self">
+          <span class="blue-text">Track all markets on TradingView</span>
+        </a>
+      </div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+      {
+      "colorTheme": "light",
+      "dateRange": "12M",
+      "showChart": true,
+      "locale": "en",
+      "largeChartUrl": "",
+      "isTransparent": false,
+      "showSymbolLogo": true,
+      "showFloatingTooltip": false,
+      "width": "100%",
+      "height": "550",
+      "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
   "plotLineColorFalling": "rgba(41, 98, 255, 1)",
   "gridLineColor": "rgba(240, 243, 250, 0)",
   "scaleFontColor": "rgba(15, 15, 15, 1)",
@@ -322,16 +336,13 @@
 <!-- TradingView Widget END -->
 
   <script>
-  // Force all <a> tags to open in the same window (WebViewer)
-  document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll("a");
-    links.forEach(link => {
-      link.setAttribute("target", "_self");
+    document.addEventListener("DOMContentLoaded", function () {
+      const links = document.querySelectorAll("a");
+      links.forEach(link => {
+        link.setAttribute("target", "_self");
+      });
     });
-  });
-</script>
 
-  <script>
     function calculateProfit() {
       const original = parseFloat(document.getElementById("original").value);
       const current = parseFloat(document.getElementById("current").value);
